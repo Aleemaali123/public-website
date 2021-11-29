@@ -1,0 +1,49 @@
+(function ($) {
+
+  $(function () {
+    if (Drupal.settings.chmi_announcement.length > 0) {
+      var $anchor = $('#navigation');
+      var body = Drupal.settings.chmi_announcement[0].body_value;
+      var title = Drupal.settings.chmi_announcement[0].title;
+      var $body = $('<div/>')
+        .html(body)
+        .addClass('announcement-body');
+
+      var $title = $('<h1/>')
+        .text(title)
+        .addClass('announcement-title');
+
+      var $close = $('<span/>')
+        .addClass('announcement-close')
+        .click(function () {
+          $announcementWrapper
+            .slideDown(1000, function () {
+              $announcementWrapper.remove();
+            })
+        });
+
+      var $announcement = $('<div/>')
+        .addClass('l-constrained')
+        .append($title)
+        .append($body)
+
+      var $announcementWrapper = $('<div/>')
+        .addClass('announcement-wrapper')
+        .addClass('announcement-blue')
+        .append($close);
+
+      $announcementWrapper
+        .hide()
+        .insertAfter($anchor)
+
+      $announcement.ready(function () {
+        $announcementWrapper
+          .append($announcement)
+          .slideDown(1000)
+          .show()
+      })
+   }
+
+  });
+})(jQuery);
+;
